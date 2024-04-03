@@ -32,7 +32,7 @@ export default function MetricsSelection({
               />
             }
             key={metric}
-            label={metric.toUpperCase()}
+            label={metric.replace("_", "").toUpperCase()}
           />
         ))}
       </FormGroup>

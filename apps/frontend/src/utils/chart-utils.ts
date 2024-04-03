@@ -1,10 +1,10 @@
 export function generateChartOptions(
   selectedMetrics: string[],
-  data: any[]
+  data: any[] = []
 ): Highcharts.Options {
   return {
     title: {
-      text: "Aggregated Metrics Over Time",
+      text: "",
     },
     xAxis: {
       type: "datetime",

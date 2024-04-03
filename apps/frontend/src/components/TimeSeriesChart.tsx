@@ -1,22 +1,30 @@
 import React, { useState } from "react";
 import Highcharts from "highcharts";
 import HighchartsReact from "highcharts-react-official";
-import useCategoryMetrics from "../hooks/useCategoryMetrics";
-import { generateChartOptions } from "../utils/chart-options";
+import { useQuery } from "@tanstack/react-query";
+import { fetchAggregatedCategoryMetrics } from "../api/category-metrics";
+import { generateChartOptions } from "../utils/chart-utils";
+import type { AggregatedCategoryMetrics } from "../types";
 import { Metrics } from "../types";
 import MetricsSelection from "./MetricsSelection";
 import Loader from "./common/Loader";
 import ErrorMessage from "./common/ErrorMessage";
 
 export default function TimeSeriesChart() {
-  const { data: aggregatedData, error, isLoading } = useCategoryMetrics();
-
   const [selectedMetrics, setSelectedMetrics] = useState<string[]>([
     Metrics.UnitsSold,
   ]);
 
-  if (isLoading) return <Loader />;
-  if (error) return <ErrorMessage message={error} />;
+  const { data, error, isFetching } = useQuery<AggregatedCategoryMetrics[]>({
+    queryKey: ["aggregated-category-metrics"],
+    queryFn: fetchAggregatedCategoryMetrics,
+  });
+
+  if (isFetching && !data) {
+    return <Loader />;
+  }
+
+  if (error) return <ErrorMessage message={error.message} />;
 
   const handleMetricChange = (metric: string) => {
     setSelectedMetrics((prev) => {
@@ -36,7 +44,7 @@ export default function TimeSeriesChart() {
     <div>
       <HighchartsReact
         highcharts={Highcharts}
-        options={generateChartOptions(selectedMetrics, aggregatedData)}
+        options={generateChartOptions(selectedMetrics, data)}
       />
       <MetricsSelection
         handleMetricChange={handleMetricChange}
