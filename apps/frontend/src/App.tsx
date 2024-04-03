@@ -1,7 +1,6 @@
 import React from "react";
+import TimeSeriesChart from "./components/TimeSeriesChart";
 
-function App() {
-  return <div>Hello World!</div>;
+export default function App() {
+  return <TimeSeriesChart />;
 }
-
-export default App;

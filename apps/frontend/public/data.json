@@ -1,0 +1,38 @@
+[
+  {
+    "date": "2021-11",
+    "product_views_total": 4828301,
+    "revenue_total": 40199637,
+    "units_sold_total": 1456260
+  },
+  {
+    "date": "2021-12",
+    "product_views_total": 5652564,
+    "revenue_total": 34594933,
+    "units_sold_total": 1514466
+  },
+  {
+    "date": "2022-01",
+    "product_views_total": 5438450,
+    "revenue_total": 30105099,
+    "units_sold_total": 1206013
+  },
+  {
+    "date": "2022-02",
+    "product_views_total": 5197259,
+    "revenue_total": 32122681,
+    "units_sold_total": 1239081
+  },
+  {
+    "date": "2022-03",
+    "product_views_total": 6287184,
+    "revenue_total": 40117469,
+    "units_sold_total": 1506905
+  },
+  {
+    "date": "2022-04",
+    "product_views_total": 5018920,
+    "revenue_total": 36787165,
+    "units_sold_total": 1333577
+  }
+]
