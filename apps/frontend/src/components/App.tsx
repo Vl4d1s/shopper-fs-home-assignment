@@ -1,8 +1,8 @@
 import React from "react";
 import { Container } from "@mui/material";
-import TimeSeriesChart from "./components/MetricsChart";
-import AppTitle from "./components/AppTitle";
-import MetricsTable from "./components/MetricsTable/MetricsTable";
+import TimeSeriesChart from "./MetricsChart";
+import AppTitle from "./AppTitle";
+import MetricsTable from "./MetricsTable/MetricsTable";
 
 export default function App() {
   return (
