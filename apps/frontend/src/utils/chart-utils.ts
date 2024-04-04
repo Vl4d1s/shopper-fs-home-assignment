@@ -1,8 +1,8 @@
-import type { MetricSummary, Metrics } from "../types";
+import type { Metrics, TimeAggregatedMetric } from "../types";
 
 export function generateChartOptions(
   selectedMetrics: Metrics[],
-  data: MetricSummary[] = []
+  data: TimeAggregatedMetric[] = []
 ): Highcharts.Options {
   return {
     title: {
@@ -23,10 +23,7 @@ export function generateChartOptions(
       type: "line",
       name: metric,
       data: data.map((point) => {
-        return [
-          new Date(`${point.date}-01`).getTime(),
-          point[metric as keyof MetricSummary],
-        ];
+        return [new Date(`${point.date}-01`).getTime(), point[metric]];
       }),
     })),
   };
