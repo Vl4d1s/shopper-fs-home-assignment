@@ -2,7 +2,7 @@ import { json, urlencoded } from "body-parser";
 import express, { type Express } from "express";
 import morgan from "morgan";
 import cors from "cors";
-import metricsRoutes from "./routes/metrics-routes";
+import metricRoutes from "./routes/metric-routes";
 
 export const createServer = (): Express => {
   const app = express();
@@ -12,7 +12,7 @@ export const createServer = (): Express => {
     .use(urlencoded({ extended: true }))
     .use(json())
     .use(cors())
-    .use("/api/v1/metrics/", metricsRoutes);
+    .use("/api/v1/metrics/", metricRoutes);
 
   return app;
 };

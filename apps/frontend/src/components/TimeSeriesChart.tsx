@@ -3,7 +3,7 @@ import Highcharts from "highcharts";
 import HighchartsReact from "highcharts-react-official";
 import { useQuery } from "@tanstack/react-query";
 import { Box } from "@mui/material";
-import { fetchMetricSummary } from "../api/category-metrics";
+import { fetchMetricsAggragetedByTime } from "../api/category-metrics";
 import { generateChartOptions } from "../utils/chart-utils";
 import type { MetricSummary } from "../types";
 import { Metrics } from "../types";
@@ -18,8 +18,8 @@ export default function TimeSeriesChart() {
   ]);
 
   const { data, error, isFetching } = useQuery<MetricSummary[]>({
-    queryKey: ["aggregated-category-metrics"],
-    queryFn: fetchMetricSummary,
+    queryKey: ["metrics-aggrageted-by-time"],
+    queryFn: fetchMetricsAggragetedByTime,
   });
 
   if (isFetching && !data) {

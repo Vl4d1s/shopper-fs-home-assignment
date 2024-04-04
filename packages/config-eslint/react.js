@@ -39,5 +39,7 @@ module.exports = {
     "unicorn/filename-case": "off",
     "@typescript-eslint/explicit-function-return-type": "off",
     "@typescript-eslint/no-misused-promises": "off",
+    "@typescript-eslint/no-unsafe-assignment": "off",
+    "@@typescript-eslint/no-unsafe-call": "off",
   },
 };
