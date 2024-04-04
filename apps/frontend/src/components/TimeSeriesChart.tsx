@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Highcharts from "highcharts";
 import HighchartsReact from "highcharts-react-official";
 import { useQuery } from "@tanstack/react-query";
+import { Box } from "@mui/material";
 import { fetchMetricSummary } from "../api/category-metrics";
 import { generateChartOptions } from "../utils/chart-utils";
 import type { MetricSummary } from "../types";
@@ -32,7 +33,7 @@ export default function TimeSeriesChart() {
   };
 
   return (
-    <div>
+    <Box gap={2} my={4} padding={2} sx={{ border: "1px solid grey" }}>
       <HighchartsReact
         highcharts={Highcharts}
         options={generateChartOptions(selectedMetrics, data)}
@@ -42,6 +43,6 @@ export default function TimeSeriesChart() {
         metrics={Object.values(Metrics)}
         selectedMetrics={selectedMetrics}
       />
-    </div>
+    </Box>
   );
 }
