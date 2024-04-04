@@ -12,7 +12,7 @@ import MetricsSelection from "./MetricsSelection";
 import Loader from "./common/Loader";
 import ErrorAlert from "./common/ErrorAlert";
 
-export default function TimeSeriesChart() {
+export default function MetricsChart() {
   const [selectedMetrics, setSelectedMetrics] = useState<Metrics[]>([
     Metrics.ProductViews,
   ]);

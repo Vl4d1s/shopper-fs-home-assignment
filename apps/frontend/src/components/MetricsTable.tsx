@@ -1,94 +1,68 @@
 import React from "react";
+import { useQuery } from "@tanstack/react-query";
 import {
   createColumnHelper,
   flexRender,
   getCoreRowModel,
   useReactTable,
 } from "@tanstack/react-table";
+import { fetchMetricsAggragetedByCategory } from "../api/category-metrics";
 
-type Person = {
-  firstName: string;
-  lastName: string;
-  age: number;
-  visits: number;
-  status: string;
-  progress: number;
+// Define the metric summary type based on the new data structure
+type MetricSummary = {
+  categoryName: string;
+  productViews: number;
+  revenue: number;
+  unitsSold: number;
+  cvr: number;
 };
 
-const defaultData: Person[] = [
-  {
-    firstName: "tanner",
-    lastName: "linsley",
-    age: 24,
-    visits: 100,
-    status: "In Relationship",
-    progress: 50,
-  },
-  {
-    firstName: "tandy",
-    lastName: "miller",
-    age: 40,
-    visits: 40,
-    status: "Single",
-    progress: 80,
-  },
-  {
-    firstName: "joe",
-    lastName: "dirte",
-    age: 45,
-    visits: 20,
-    status: "Complicated",
-    progress: 10,
-  },
-];
-
-const columnHelper = createColumnHelper<Person>();
+const columnHelper = createColumnHelper<MetricSummary>();
 
 const columns = [
-  columnHelper.accessor("firstName", {
+  columnHelper.accessor("categoryName", {
+    header: "Category",
     cell: (info) => info.getValue(),
-    footer: (info) => info.column.id,
   }),
-  columnHelper.accessor((row) => row.lastName, {
-    id: "lastName",
-    cell: (info) => <i>{info.getValue()}</i>,
-    header: () => <span>Last Name</span>,
-    footer: (info) => info.column.id,
+  columnHelper.accessor("productViews", {
+    header: "Product Views",
+    cell: (info) => info.getValue().toLocaleString(),
   }),
-  columnHelper.accessor("age", {
-    header: () => "Age",
-    cell: (info) => info.renderValue(),
-    footer: (info) => info.column.id,
+  columnHelper.accessor("revenue", {
+    header: "Revenue",
+    cell: (info) => `$${info.getValue().toLocaleString()}`,
   }),
-  columnHelper.accessor("visits", {
-    header: () => <span>Visits</span>,
-    footer: (info) => info.column.id,
+  columnHelper.accessor("unitsSold", {
+    header: "Units Sold",
+    cell: (info) => info.getValue().toLocaleString(),
   }),
-  columnHelper.accessor("status", {
-    header: "Status",
-    footer: (info) => info.column.id,
-  }),
-  columnHelper.accessor("progress", {
-    header: "Profile Progress",
-    footer: (info) => info.column.id,
+  columnHelper.accessor("cvr", {
+    header: "CVR (%)",
+    cell: (info) => `${info.getValue()}%`,
   }),
 ];
 
 export default function MetricsTable() {
-  const [data, _setData] = React.useState(() => [...defaultData]);
-  const rerender = React.useReducer(() => ({}), {})[1];
+  const { data, error, isLoading } = useQuery<any>({
+    queryKey: ["metrics-aggrageted-by-category"],
+    queryFn: fetchMetricsAggragetedByCategory,
+  });
 
-  const table = useReactTable({
-    data,
+  const tableInstance = useReactTable({
+    data: data || [],
     columns,
     getCoreRowModel: getCoreRowModel(),
   });
+
+  // Render the loading state, error state, or the table
+  if (isLoading) return <div>Loading...</div>;
+  if (error) return <div>Error: {error.message}</div>;
 
   return (
     <div className="p-2">
       <table>
         <thead>
-          {table.getHeaderGroups().map((headerGroup) => (
+          {tableInstance.getHeaderGroups().map((headerGroup) => (
             <tr key={headerGroup.id}>
               {headerGroup.headers.map((header) => (
                 <th key={header.id}>
@@ -104,7 +78,7 @@ export default function MetricsTable() {
           ))}
         </thead>
         <tbody>
-          {table.getRowModel().rows.map((row) => (
+          {tableInstance.getRowModel().rows.map((row) => (
             <tr key={row.id}>
               {row.getVisibleCells().map((cell) => (
                 <td key={cell.id}>
@@ -115,7 +89,7 @@ export default function MetricsTable() {
           ))}
         </tbody>
         <tfoot>
-          {table.getFooterGroups().map((footerGroup) => (
+          {tableInstance.getFooterGroups().map((footerGroup) => (
             <tr key={footerGroup.id}>
               {footerGroup.headers.map((header) => (
                 <th key={header.id}>
@@ -131,15 +105,6 @@ export default function MetricsTable() {
           ))}
         </tfoot>
       </table>
-      <div className="h-4" />
-      <button
-        className="border p-2"
-        onClick={() => {
-          rerender();
-        }}
-      >
-        Rerender
-      </button>
     </div>
   );
 }

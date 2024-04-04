@@ -12,7 +12,7 @@ export const fetchMetricsAggragetedByTime = async (): Promise<
   return convertedData;
 };
 
-export const fetchMetricsAggragetedCategory = async (): Promise<
+export const fetchMetricsAggragetedByCategory = async (): Promise<
   MetricSummary[]
 > => {
   const { data } = await axios.get<ApiDataType[]>(`${API_URL}/category`);
