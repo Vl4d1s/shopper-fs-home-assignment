@@ -2,9 +2,9 @@ import React, { useState } from "react";
 import Highcharts from "highcharts";
 import HighchartsReact from "highcharts-react-official";
 import { useQuery } from "@tanstack/react-query";
-import { fetchMetricsAggragetedByTime } from "../api/category-metrics";
+import { fetchTimeAggregatedMetric } from "../api/category-metrics";
 import { generateChartOptions } from "../utils/chart-utils";
-import type { MetricSummary } from "../types";
+import type { TimeAggregatedMetric } from "../types";
 import { Metrics } from "../types";
 import { toggleSelectedMetric } from "../utils/metrics-utils";
 import MetricsSelection from "./MetricsSelection";
@@ -17,9 +17,9 @@ export default function MetricsChart() {
     Metrics.ProductViews,
   ]);
 
-  const { data, error, isFetching } = useQuery<MetricSummary[]>({
-    queryKey: ["metrics-aggrageted-by-time"],
-    queryFn: fetchMetricsAggragetedByTime,
+  const { data, error, isFetching } = useQuery<TimeAggregatedMetric[]>({
+    queryKey: ["time-aggregated-metric"],
+    queryFn: fetchTimeAggregatedMetric,
   });
 
   if (isFetching && !data) {

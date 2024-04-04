@@ -10,16 +10,17 @@ import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
-import { fetchMetricsAggragetedByCategory } from "../../api/category-metrics";
+import { fetchCategoryAggregatedMetric } from "../../api/category-metrics";
 import Loader from "../common/Loader";
 import ErrorAlert from "../common/ErrorAlert";
 import BoxFrame from "../common/BoxFrame";
+import type { CategoryAggregatedMetric } from "../../types";
 import { columns } from "./column";
 
 export default function MetricsTable() {
-  const { data, error, isLoading } = useQuery<any>({
-    queryKey: ["metrics-aggrageted-by-category"],
-    queryFn: fetchMetricsAggragetedByCategory,
+  const { data, error, isLoading } = useQuery<CategoryAggregatedMetric[]>({
+    queryKey: ["category-aggregated-metric"],
+    queryFn: fetchCategoryAggregatedMetric,
   });
 
   const { getHeaderGroups, getRowModel } = useReactTable({

@@ -52,7 +52,7 @@ export class MetricService {
   async aggregateMetricsByCategory(): Promise<MetricResponse> {
     const db: Database = await getDatabaseConnection();
 
-    let query = `
+    const query = `
       SELECT category_name,
       SUM(product_views) AS product_views,
       SUM(revenue) AS revenue,

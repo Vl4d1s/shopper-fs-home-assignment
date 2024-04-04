@@ -1,14 +1,7 @@
 import { createColumnHelper } from "@tanstack/react-table";
+import type { CategoryAggregatedMetric } from "../../types";
 
-interface MetricSummary {
-  categoryName: string;
-  productViews: number;
-  revenue: number;
-  unitsSold: number;
-  cvr: number;
-}
-
-const columnHelper = createColumnHelper<MetricSummary>();
+const columnHelper = createColumnHelper<CategoryAggregatedMetric>();
 
 export const columns = [
   columnHelper.accessor("categoryName", {
