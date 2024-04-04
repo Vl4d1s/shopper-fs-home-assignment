@@ -3,8 +3,8 @@ import React from "react";
 
 export default function AppTitle() {
   return (
-    <Typography align="center" gutterBottom variant="h2">
-      Shopper FS Home Assignment
+    <Typography align="center" mt={4} variant="h4">
+      Shopper | Metrics Dashboard
     </Typography>
   );
 }

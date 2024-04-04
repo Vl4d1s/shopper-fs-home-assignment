@@ -10,10 +10,10 @@ import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
-import Box from "@mui/material/Box";
 import { fetchMetricsAggragetedByCategory } from "../../api/category-metrics";
 import Loader from "../common/Loader";
 import ErrorAlert from "../common/ErrorAlert";
+import BoxFrame from "../common/BoxFrame";
 import { columns } from "./column";
 
 export default function MetricsTable() {
@@ -32,8 +32,8 @@ export default function MetricsTable() {
   if (error) return <ErrorAlert message={error.message} />;
 
   return (
-    <Box gap={2} my={4} padding={2} sx={{ border: "1px solid grey" }}>
-      <Table aria-label="aggregated metrics table">
+    <BoxFrame title="Aggregated Metrics by Category Table">
+      <Table>
         <TableHead>
           {getHeaderGroups().map((headerGroup) => (
             <TableRow key={headerGroup.id}>
@@ -62,6 +62,6 @@ export default function MetricsTable() {
           ))}
         </TableBody>
       </Table>
-    </Box>
+    </BoxFrame>
   );
 }

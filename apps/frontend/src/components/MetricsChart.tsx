@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import Highcharts from "highcharts";
 import HighchartsReact from "highcharts-react-official";
 import { useQuery } from "@tanstack/react-query";
-import { Box } from "@mui/material";
 import { fetchMetricsAggragetedByTime } from "../api/category-metrics";
 import { generateChartOptions } from "../utils/chart-utils";
 import type { MetricSummary } from "../types";
@@ -11,6 +10,7 @@ import { toggleSelectedMetric } from "../utils/metrics-utils";
 import MetricsSelection from "./MetricsSelection";
 import Loader from "./common/Loader";
 import ErrorAlert from "./common/ErrorAlert";
+import BoxFrame from "./common/BoxFrame";
 
 export default function MetricsChart() {
   const [selectedMetrics, setSelectedMetrics] = useState<Metrics[]>([
@@ -33,7 +33,7 @@ export default function MetricsChart() {
   };
 
   return (
-    <Box gap={2} my={4} padding={2} sx={{ border: "1px solid grey" }}>
+    <BoxFrame title="Aggregated Metrics by Category Chart">
       <HighchartsReact
         highcharts={Highcharts}
         options={generateChartOptions(selectedMetrics, data)}
@@ -43,6 +43,6 @@ export default function MetricsChart() {
         metrics={Object.values(Metrics)}
         selectedMetrics={selectedMetrics}
       />
-    </Box>
+    </BoxFrame>
   );
 }
