@@ -1,6 +1,8 @@
+import type { MetricSummary, Metrics } from "../types";
+
 export function generateChartOptions(
-  selectedMetrics: string[],
-  data: any[] = []
+  selectedMetrics: Metrics[],
+  data: MetricSummary[] = []
 ): Highcharts.Options {
   return {
     title: {
@@ -19,11 +21,11 @@ export function generateChartOptions(
     },
     series: selectedMetrics.map((metric) => ({
       type: "line",
-      name: metric.toUpperCase(),
+      name: metric,
       data: data.map((point) => {
         return [
           new Date(`${point.date}-01`).getTime(),
-          point[`${metric}_total`],
+          point[metric as keyof MetricSummary],
         ];
       }),
     })),

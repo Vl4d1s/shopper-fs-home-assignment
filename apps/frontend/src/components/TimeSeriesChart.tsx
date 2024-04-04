@@ -2,22 +2,23 @@ import React, { useState } from "react";
 import Highcharts from "highcharts";
 import HighchartsReact from "highcharts-react-official";
 import { useQuery } from "@tanstack/react-query";
-import { fetchAggregatedCategoryMetrics } from "../api/category-metrics";
+import { fetchMetricSummary } from "../api/category-metrics";
 import { generateChartOptions } from "../utils/chart-utils";
-import type { AggregatedCategoryMetrics } from "../types";
+import type { MetricSummary } from "../types";
 import { Metrics } from "../types";
+import { toggleSelectedMetric } from "../utils/metrics-utils";
 import MetricsSelection from "./MetricsSelection";
 import Loader from "./common/Loader";
 import ErrorMessage from "./common/ErrorMessage";
 
 export default function TimeSeriesChart() {
-  const [selectedMetrics, setSelectedMetrics] = useState<string[]>([
-    Metrics.UnitsSold,
+  const [selectedMetrics, setSelectedMetrics] = useState<Metrics[]>([
+    Metrics.ProductViews,
   ]);
 
-  const { data, error, isFetching } = useQuery<AggregatedCategoryMetrics[]>({
+  const { data, error, isFetching } = useQuery<MetricSummary[]>({
     queryKey: ["aggregated-category-metrics"],
-    queryFn: fetchAggregatedCategoryMetrics,
+    queryFn: fetchMetricSummary,
   });
 
   if (isFetching && !data) {
@@ -26,18 +27,8 @@ export default function TimeSeriesChart() {
 
   if (error) return <ErrorMessage message={error.message} />;
 
-  const handleMetricChange = (metric: string) => {
-    setSelectedMetrics((prev) => {
-      const isCurrentlySelected = prev.includes(metric);
-      if (isCurrentlySelected && prev.length === 1) {
-        return prev;
-      } else if (isCurrentlySelected) {
-        return prev.filter((m) => m !== metric);
-      } else if (prev.length < 2) {
-        return [...prev, metric];
-      }
-      return [prev[1], metric];
-    });
+  const handleMetricChange = (metric: Metrics) => {
+    setSelectedMetrics((prev) => toggleSelectedMetric(prev, metric));
   };
 
   return (

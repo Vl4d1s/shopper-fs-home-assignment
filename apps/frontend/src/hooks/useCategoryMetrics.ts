@@ -1,10 +1,10 @@
 import { useQuery } from "react-query";
-import { fetchAggregatedCategoryMetrics } from "../api/category-metrics";
+import { fetchMetricSummary } from "../api/category-metrics";
 
 function useAggregatedDataQuery() {
   const { data, error, isFetching } = useQuery({
     queryKey: ["aggregatedData"],
-    queryFn: fetchAggregatedCategoryMetrics,
+    queryFn: fetchMetricSummary,
   });
 
   return { data, error, isFetching };
