@@ -99,6 +99,9 @@ importers:
       '@mui/material':
         specifier: ^5.15.14
         version: 5.15.14(@emotion/react@11.11.4)(@emotion/styled@11.11.5)(@types/react@18.2.61)(react-dom@18.2.0)(react@18.2.0)
+      '@supabase/supabase-js':
+        specifier: ^2.39.7
+        version: 2.39.7
       '@tanstack/react-query':
         specifier: ^5.28.14
         version: 5.28.14(react@18.2.0)
