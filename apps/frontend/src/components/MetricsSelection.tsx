@@ -3,6 +3,7 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
 import FormGroup from "@mui/material/FormGroup";
 import Typography from "@mui/material/Typography";
+import { Box } from "@mui/material";
 import type { Metrics } from "../types";
 
 interface MetricsSelectionProps {
@@ -16,29 +17,31 @@ export default function MetricsSelection({
   handleMetricChange,
   metrics,
   selectedMetrics,
-  title,
+  title = "Select Metrics to Compare (up to 2):",
 }: MetricsSelectionProps) {
   return (
-    <div>
-      <Typography variant="h6">
-        {title ? title : "Select Metrics to Compare (up to 2):"}
-      </Typography>
+    <Box>
+      <Typography variant="h6">{title}</Typography>
       <FormGroup row>
-        {metrics.map((metric) => (
-          <FormControlLabel
-            control={
-              <Checkbox
-                checked={selectedMetrics.includes(metric)}
-                onChange={() => {
-                  handleMetricChange(metric);
-                }}
-              />
-            }
-            key={metric}
-            label={metric}
-          />
-        ))}
+        {metrics.length > 0 ? (
+          metrics.map((metric) => (
+            <FormControlLabel
+              control={
+                <Checkbox
+                  checked={selectedMetrics.includes(metric)}
+                  onChange={() => {
+                    handleMetricChange(metric);
+                  }}
+                />
+              }
+              key={metric}
+              label={metric}
+            />
+          ))
+        ) : (
+          <Typography variant="body1">No metrics available</Typography>
+        )}
       </FormGroup>
-    </div>
+    </Box>
   );
 }

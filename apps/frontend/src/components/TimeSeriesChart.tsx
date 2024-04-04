@@ -10,7 +10,7 @@ import { Metrics } from "../types";
 import { toggleSelectedMetric } from "../utils/metrics-utils";
 import MetricsSelection from "./MetricsSelection";
 import Loader from "./common/Loader";
-import ErrorMessage from "./common/ErrorMessage";
+import ErrorAlert from "./common/ErrorAlert";
 
 export default function TimeSeriesChart() {
   const [selectedMetrics, setSelectedMetrics] = useState<Metrics[]>([
@@ -26,7 +26,7 @@ export default function TimeSeriesChart() {
     return <Loader />;
   }
 
-  if (error) return <ErrorMessage message={error.message} />;
+  if (error) return <ErrorAlert message={error.message} />;
 
   const handleMetricChange = (metric: Metrics) => {
     setSelectedMetrics((prev) => toggleSelectedMetric(prev, metric));
