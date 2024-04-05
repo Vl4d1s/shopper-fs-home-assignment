@@ -1,51 +1,30 @@
 import type { Database } from "sqlite";
 import { getDatabaseConnection } from "../config/database-connection";
-import type { MetricsSummary } from "../types";
-
-interface MetricResponse {
-  success: boolean;
-  data?: MetricsSummary[];
-  error?: string;
-}
-
-interface MetricsSummaryByCategory {
-  category: string;
-  product_views: number;
-  revenue: number;
-  units_sold: number;
-  cvr: number;
-}
+import type {
+  CategoryAggregatedMetric,
+  MetricResponse,
+  TimeAggregatedMetric,
+} from "../types";
 
 export class MetricService {
-  async aggregateMetricsByTime(
-    startDate?: string,
-    endDate?: string
-  ): Promise<MetricResponse> {
+  async aggregateMetricsByTime(): Promise<MetricResponse> {
     const db: Database = await getDatabaseConnection();
-
-    let query = `
+    const query = `
       SELECT date,
              SUM(product_views) AS product_views,
              SUM(revenue) AS revenue,
              SUM(units_sold) AS units_sold
       FROM metrics
+      GROUP BY date ORDER BY date ASC
     `;
-    const params: string[] = [];
-
-    if (startDate && endDate) {
-      query += " WHERE date BETWEEN ? AND ?";
-      params.push(startDate, endDate);
-    }
-
-    query += " GROUP BY date ORDER BY date ASC";
 
     try {
-      const data: MetricsSummary[] = await db.all(query, params);
+      const data: TimeAggregatedMetric[] = await db.all(query);
       await db.close();
       return { data, error: "", success: true };
-    } catch (error) {
+    } catch (error: unknown) {
       await db.close();
-      return { error: error.message, success: false };
+      return { error: (error as Error).message, success: false };
     }
   }
 
@@ -71,13 +50,13 @@ export class MetricService {
   `;
 
     try {
-      const data: MetricsSummaryByCategory[] = await db.all(query);
+      const data: CategoryAggregatedMetric[] = await db.all(query);
 
       await db.close();
       return { data, error: "", success: true };
     } catch (error) {
       await db.close();
-      return { error: error.message, success: false };
+      return { error: (error as Error).message, success: false };
     }
   }
 }

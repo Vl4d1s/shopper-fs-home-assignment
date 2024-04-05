@@ -46,5 +46,6 @@ module.exports = {
     "@typescript-eslint/no-misused-promises": "off",
     "@typescript-eslint/explicit-function-return-type": "off",
     "no-console": "off",
+    camelcase: "off",
   },
 };

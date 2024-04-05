@@ -1,15 +1,16 @@
-import { initDB } from "./config/init-db";
 import { createServer } from "./server";
-import { migrateData } from "./config/migrate-data";
+import { setupDatabase } from "./config/database-setup";
 
 void (async () => {
-  await initDB();
-  await migrateData();
+  try {
+    await setupDatabase();
+    const port = process.env.PORT || 5001;
+    const server = createServer();
+
+    server.listen(port, () => {
+      console.log(`API running on port ${port}`);
+    });
+  } catch (error) {
+    console.error("Failed to setup database or start the server:", error);
+  }
 })();
-
-const port = process.env.PORT || 5001;
-const server = createServer();
-
-server.listen(port, () => {
-  console.log(`api running on ${port}`);
-});
