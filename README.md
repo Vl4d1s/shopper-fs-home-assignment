@@ -1,5 +1,6 @@
 # Shopper FS Home Assignment
-![CleanShot 2024-04-04 at 17 33 10](https://github.com/Vl4d1s/shopper-fs-home-assignment/assets/42187212/e7ecc34b-c5c8-4a18-a98e-ab5c742a756b)
+![CleanShot 2024-04-05 at 12 37 02](https://github.com/Vl4d1s/shopper-fs-home-assignment/assets/42187212/9d6a986a-5d66-4737-8b0e-e8340b97fe3f)
+
 
 ## Technologies:
 
