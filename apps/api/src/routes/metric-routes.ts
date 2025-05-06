@@ -1,9 +1,9 @@
 import { Router } from "express";
-import { metricsController } from "../controllers/metric-controller";
 
 export const metricsRouter: Router = Router();
 
-metricsRouter.get("/time", metricsController.aggregateMetricsByTime);
-metricsRouter.get("/category", metricsController.aggregateMetricsByCategory);
+metricsRouter.get("/hello", (req, res) => {
+  res.json({ message: "Hello, world!" });
+});
 
 export default metricsRouter;

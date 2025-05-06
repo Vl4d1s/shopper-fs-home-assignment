@@ -2,8 +2,8 @@ import { json, urlencoded } from "body-parser";
 import express, { type Express } from "express";
 import morgan from "morgan";
 import cors from "cors";
-import metricRoutes from "./routes/metric-routes";
 import { errorHandler, notFoundHandler } from "./middleware/error-handler";
+import metricRoutes from "./routes/metric-routes";
 
 export const createServer = (): Express => {
   const app = express();

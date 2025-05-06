@@ -13,15 +13,7 @@
     "@emotion/react": "^11.11.4",
     "@emotion/styled": "^11.11.5",
     "@mui/material": "^5.15.14",
-    "@supabase/supabase-js": "^2.39.7",
     "@tanstack/react-query": "^5.28.14",
-    "@tanstack/react-table": "^8.15.3",
-    "@types/axios": "^0.14.0",
-    "@types/lodash": "^4.17.0",
-    "axios": "^1.6.8",
-    "highcharts": "^11.4.0",
-    "highcharts-react-official": "^3.2.1",
-    "lodash": "^4.17.21",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-query": "^3.39.3"
@@ -29,7 +21,6 @@
   "devDependencies": {
     "@repo/eslint-config": "workspace:*",
     "@repo/typescript-config": "workspace:*",
-    "@types/highcharts": "^7.0.0",
     "@types/react": "^18.2.46",
     "@types/react-dom": "^18.2.18",
     "@vitejs/plugin-react": "^4.2.1",
